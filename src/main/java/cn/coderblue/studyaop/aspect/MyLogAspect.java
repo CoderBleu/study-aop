@@ -6,6 +6,7 @@ import cn.coderblue.studyaop.enums.BusinessStatus;
 import cn.coderblue.studyaop.manager.AsyncManager;
 import cn.coderblue.studyaop.utils.ServletUtils;
 import cn.coderblue.studyaop.utils.SnowflakeIdUtils;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.aspectj.lang.JoinPoint;
@@ -108,7 +109,7 @@ public class MyLogAspect {
      * @throws Exception
      */
     public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperationLog operLog) throws Exception {
-        // 设置action动作
+        // 设置action动作：ordinal()返回此枚举常数的序数
         operLog.setBusinessType(log.businessType().ordinal());
         // 设置标题
         operLog.setTitle(log.title());
@@ -171,7 +172,7 @@ public class MyLogAspect {
         if (paramsArray != null && paramsArray.length > 0) {
             for (int i = 0; i < paramsArray.length; i++) {
                 if (!isFilterObject(paramsArray[i])) {
-                    Object jsonObj = JSON.toJSON(paramsArray[i]);
+                    Object jsonObj = JSONUtil.parseObj(paramsArray[i]);
                     params += jsonObj.toString() + " ";
                 }
             }
