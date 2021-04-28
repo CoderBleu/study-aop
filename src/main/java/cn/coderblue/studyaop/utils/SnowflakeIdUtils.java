@@ -1,5 +1,7 @@
 package cn.coderblue.studyaop.utils;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Twitter_Snowflake<br>
  * SnowFlake的结构如下(每部分用-分开):<br>
